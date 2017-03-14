@@ -1,0 +1,113 @@
+* Learning Emacs Day_2
+
+** COMMENT Fix some annoying stuff
+1. make cursor style to bar 修改方块光标为普通
+#+BEGIN_SRC emacs-lisp
+  (setq-default cursor-type 'bar)
+#+END_SRC
+setq 和 setq-default 在非 buffer-local 变量作用中相同
+
+2. disable backup file
+#+BEGIN_SRC emacs-lisp
+  (setq make-backup-files nil)
+#+END_SRC
+
+3. enable recentf-mode
+#+BEGIN_SRC emacs-lisp
+  (require 'recentf)
+  (recentf-mode -1)
+  (setq recentf-max-menu-items 10)
+  (global-set-key "\C-x\ \C-r\" 'recentf-open-files)
+#+END_SRC
+
+4. add delete selection mode
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode t)
+#+END_SRC
+让emacs和其他编辑器尽量保持一致
+
+5. 快速输入代码段默认格式
+  '<s' + TAB
+
+6. 开启括号匹配
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'eamcs-lisp-mode-hook 'show-paren-mode)
+#+END_SRC
+hook 钩子设置默认打开所有的钩子 第二个参数指定特定钩子
+弊端就是不会显示两边的括号
+
+7. highlight current line (global-hl-line-mode)
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode t)
+#+END_SRC
+** Package install 
+1. M+x package-list
+I 选中你要安装的package
+U 撤销你要选择安装的package 或者更新新的package
+D 选择你要删除的package 再按X确定
+
+2. install and configure smex and ivy mod
+
+3. install package function 
+#+BEGIN_SRC emacs-lisp
+   (when (>= emacs-major-version 24)
+       (require 'package)
+       (package-initialize)
+       (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
+
+   ;; cl - Common Lisp Extension
+   (require 'cl)
+
+   ;; Add Packages
+   (defvar my/packages '(
+          ;; --- Auto-completion ---
+          company
+          ;; --- Better Editor ---
+          hungry-delete
+          swiper
+          counsel
+          smartparens
+          ;; --- Major Mode ---
+          ;; --- Minor Mode ---
+          ;; --- Themes ---
+          dracula-theme)
+          ) "Default packages")
+
+   (setq package-selected-packages my/packages)
+
+   (defun my/packages-installed-p ()
+       (loop for pkg in my/packages
+         when (not (package-installed-p pkg)) do (return nil)
+         finally (return t)))
+
+   (unless (my/packages-installed-p)
+       (message "%s" "Refreshing package database...")
+       (package-refresh-contents)
+       (dolist (pkg my/packages)
+         (when (not (package-installed-p pkg))
+       (package-install pkg))))
+
+   ;; Find Executable Path on OS X
+   (when (memq window-system '(mac ns))
+     (exec-path-from-shell-initialize))
+
+#+END_SRC
+** Learn more about emacs itself
+1. C-h f(find function)
+2. C-h v(find variable)
+3. C-h k(find function on key)
+** Tips 
+1. org-mode下M+return有很多可用之处
+2. C+x b 切换buffer
+** Org-mode
+*** Agenda files and agenda view
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files '("d:/Org"))
+  (global-set-key (kbd "C-c a") 'org-agenda)
+#+END_SRC
+*** Use agenda
+1. C-c C-t 可以修改状态为TODO
+2. C-c C-s agenda 设置开始时间
+3. C-c C-d agenda 设置结束时间 deadline
+4. C-c a 列出当天的日程 r刷新当天的日程

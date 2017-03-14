@@ -1,0 +1,71 @@
+* Learn emacs Day_3
+** COMMENT Split your configs into multiple files
+1. use Git to management your init file 
+2. forbidden auto-save-list mode
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-default nil)
+#+END_SRC
+3. help windows is anoyying
+#+BEGIN_SRC emacs-lisp
+  ;; add popwin mode
+  (require 'popwin)
+  (popwin-mode t)
+#+END_SRC
+4. features, provide and require, autoload
+5. naming conventions
+syhsyh9696/xxxx
+minor mode and major mode 
+syhsyh-mode
+syhsyh-aaa-mode
+(reduce name confilcts)
+6. define your abbrevs
+#+BEGIN_SRC emacs-lisp
+  (abbrev-mode t)
+  (define-abbrev-table 'global-abbrev-table '(
+                                              ;; nickname
+                                              ("syh" "syhsyh9696")
+                                              ;; others
+                                              ))
+
+#+END_SRC
+7. how to organize your configs
+- init-packages.el
+- init-ui.el 
+- init-better-default.el
+- init-keybinding.el
+- custom.el
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
+#+END_SRC
+8. use 'counsel-git' to find file in git managed project 
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c p f") 'counsel-git)
+#+END_SRC
+9. load file 
+#+BEGIN_SRC emacs-lisp
+  (load "init-packages")
+  (require 'init-packages)
+  (load-file "~/.emacs.d/lisp/init-packages.elc")
+#+END_SRC
+load file 会首先查找.elc文件，如果没有的话查找.el文件
+require 内部也是调用load 函数
+load-file 需要提供一个绝对路径
+10. compile
+- byte-compile-file 
+- byte-recompile-directory
+- byte-recompile-file
+** Major mode and minor mode in details
+1. conventions
+text-mode/special-mode/prog-mode
+
+2. mode key map and mode hook  
+** Better default
+1. disable audio bell
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+** Dired mode and files related operations
+** Bonus Time. Use Or g-mode literator programming
+** Tips
+
+ 
