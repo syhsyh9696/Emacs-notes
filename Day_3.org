@@ -1,5 +1,5 @@
 * Learn emacs Day_3
-** COMMENT Split your configs into multiple files
+** Split your configs into multiple files
 1. use Git to management your init file 
 2. forbidden auto-save-list mode
 #+BEGIN_SRC emacs-lisp
@@ -65,7 +65,7 @@ text-mode/special-mode/prog-mode
   (setq ring-bell-function 'ignore)
 #+END_SRC
 ** Dired mode and files related operations
-** Bonus Time. Use Or g-mode literator programming
+** Bonus Time. Use Org-mode literator programming
 ** Tips
 
  
