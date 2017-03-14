@@ -13,11 +13,11 @@
 #+END_SRC
 4. features, provide and require, autoload
 5. naming conventions
-syhsyh9696/xxxx
-minor mode and major mode 
-syhsyh-mode
-syhsyh-aaa-mode
-(reduce name confilcts)
+- syhsyh9696/xxxx
+- minor mode and major mode 
+- syhsyh-mode
+- syhsyh-aaa-mode
+- (reduce name confilcts)
 6. define your abbrevs
 #+BEGIN_SRC emacs-lisp
   (abbrev-mode t)
@@ -47,9 +47,9 @@ syhsyh-aaa-mode
   (require 'init-packages)
   (load-file "~/.emacs.d/lisp/init-packages.elc")
 #+END_SRC
-load file 会首先查找.elc文件，如果没有的话查找.el文件
-require 内部也是调用load 函数
-load-file 需要提供一个绝对路径
+- load file 会首先查找.elc文件，如果没有的话查找.el文件
+- require 内部也是调用load 函数
+- load-file 需要提供一个绝对路径
 10. compile
 - byte-compile-file 
 - byte-recompile-directory
